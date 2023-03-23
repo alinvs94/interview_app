@@ -1,9 +1,8 @@
-
 import { useEffect, useRef, useState } from "react";
 
 export function InputControl() {
   const [inputState, setinputState] = useState(true);
-  const [alertState, setAlertState] = useState(false)
+  const [alertState, setAlertState] = useState(false);
 
   let placeholderText = inputState ? "Insert Text" : "Insert Numbers";
   let inputType = inputState ? "text" : "number";
@@ -13,18 +12,18 @@ export function InputControl() {
 
   const inputRef = useRef();
 
-  
-
   const changeAlertState = () => {
-   if(!alertState) {
-    setAlertState(!alertState);
-    setTimeout(()=>{
-      setAlertState(false)
-    },4000)
-   }
-  }
-  
-  let alertElement = alertState ? `That's not a ${inputState ? 'letter!' : 'number!'} ` : '';
+    if (!alertState) {
+      setAlertState(!alertState);
+      setTimeout(() => {
+        setAlertState(false);
+      }, 4000);
+    }
+  };
+
+  let alertElement = alertState
+    ? `That's not a ${inputState ? "letter!" : "number!"} `
+    : "";
 
   const controlElement = (event) => {
     if (inputState) {
@@ -33,7 +32,11 @@ export function InputControl() {
         changeAlertState();
       }
     } else {
-      if (!validNumber.test(event.key) && event.key !== "Backspace" && event.key !== '+') {
+      if (
+        !validNumber.test(event.key) &&
+        event.key !== "Backspace" &&
+        event.key !== "+"
+      ) {
         event.preventDefault();
         changeAlertState();
       }
@@ -47,9 +50,20 @@ export function InputControl() {
   };
 
   return (
-    <div style={{ marginLeft: "2rem"}}>
-      <form style={{ display: "flex", flexDirection: "column",  marginBottom:'1rem'}}>
-        <label htmlFor="inputField" style={{fontWeight:'bold',  marginBottom:'1rem'}}>Put here your {inputType}</label>
+    <div style={{ marginLeft: "2rem" }}>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: "1rem",
+        }}
+      >
+        <label
+          htmlFor="inputField"
+          style={{ fontWeight: "bold", marginBottom: "1rem" }}
+        >
+          Put here your {inputType}
+        </label>
         <input
           style={{ width: "20rem", height: "2rem" }}
           id="inputField"
@@ -60,9 +74,11 @@ export function InputControl() {
         ></input>
       </form>
 
-      <button onClick={handleClick}>Click for {inputState ? 'number' : 'text'} input</button>
+      <button onClick={handleClick}>
+        Click for {inputState ? "number" : "text"} input
+      </button>
 
-      <div style={{color:'red', fontWeight:'bold'}}>{alertElement}</div>
+      <div style={{ color: "red", fontWeight: "bold"}}>{alertElement}</div>
     </div>
   );
 }
